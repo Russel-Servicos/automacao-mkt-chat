@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  automacao_mkt:
+    image: python:3.12.5-alpine3.20
+    container_name: automacao_mkt
+    working_dir: /app
+    command: "/bin/ash init-container.sh"
+    volumes:
+      - "./:/app"
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 512M
