@@ -12,11 +12,9 @@ import datetime
 import numpy as np
 
 caminho_do_arquivo = "/content/planilha_chat_estagio_2de2_2024_09_18_23_36.csv"
-caminho_do_arquivo = "https://raw.githubusercontent.com/Russel-Servicos/automacao-mkt-chat/main/planilha_chat_estagio_1de2_exemplo.csv"
+data = "11/09/2024"
 
 df = pd.read_csv(caminho_do_arquivo)
-
-data = "11/09/2024"
 
 ## Conta quantidade de qualificado, não qualificado e emprego
 qty_ids = len(df.index)
@@ -100,7 +98,7 @@ contagem_origens_dict = generate_data_column_contagem(values=origens, column="Or
 contagem_meios_dict = generate_data_column_contagem(values=meios, column="Meio")
 contagem_campanhas_dict = generate_data_column_contagem(values=campanhas, column="Campanha")
 
-contagem_qualificacao_dict = generate_data_column_contagem_from_qualificacao(values=qualificacao, column="Qualificação")
+contagem_qualificacao_dict = generate_data_column_contagem_from_qualificacao(values=qualificacoes, column="Qualificação")
 
 ## Insere valores na coluna Contagem e Taxa de Conversão
 all_contagem_rows_dict = contagem_qualificacao_dict + [ {} ] + contagem_canais_dict + [ {} ] + contagem_origens_dict + [ {} ] + contagem_meios_dict + [ {} ] + contagem_campanhas_dict

@@ -10,12 +10,10 @@ Original file is located at
 import pandas as pd
 import datetime
 
-caminho_do_arquivo = "https://raw.githubusercontent.com/Russel-Servicos/automacao-mkt-chat/main/planilha_chat_base.csv"
 caminho_do_arquivo = "/content/planilha_chat_estagio_1de2_2024_09_18_16_25.csv"
+data = "11/09/2024"
 
 df = pd.read_csv(caminho_do_arquivo)
-
-data = "11/09/2024"
 
 ## Remove linhas duplicadas
 df = df.drop_duplicates(subset = ["Name"])
@@ -31,7 +29,6 @@ columns_to_type_conversions={
     'Campaign Name': 'str',
   }
 df = df.astype(columns_to_type_conversions)
-df
 
 ## Filtra as linhas a coluna Page (Página de Aterrissagem)
 query_is_russelvagas = "not (Page.str.contains('russelvagas.com'))"
@@ -57,7 +54,6 @@ df['Taxa de Conversão'] = ''
 
 ## Reorganiza colunas
 df = df.reindex(['Data','ID do Visitante','Canal','Página de Aterrissagem','Question','Origem','Meio','Campanha','Estado','Keyword','Qualificação','Contagem','Taxa de Conversão'], axis = 1)
-df.head()
 
 ## Atribui as linhas, o valor "Emprego"
 query_is_emprego = "(Question.str.contains('Emprego', case=False))"
