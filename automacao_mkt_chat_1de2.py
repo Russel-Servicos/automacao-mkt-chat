@@ -18,6 +18,9 @@ data = "18/09/2024"
 
 df = pd.read_csv(caminho_do_arquivo)
 
+## Remove linhas com NaN ou vazia
+df.dropna(how="all")
+
 ## Remove linhas duplicadas
 df = df.drop_duplicates(subset = ["Name"])
 
