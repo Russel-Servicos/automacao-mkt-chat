@@ -53,34 +53,13 @@ campanhas = pd.unique(df["Campanha"])
 qualificacoes = pd.unique(df["Qualificação"])
 
 ## Contagem e Taxa de Conversão das colunas: Canal, Origem, Meio e Campanha
-def generate_data_column_contagem(values, column):
-  result_list = []
-
-  for value in values:
-    df_filtered = df.query(f"{column} == '{value}'")
-    total_rows = len(df_filtered.index)
-
-    df_qualified = df_filtered.query("Qualificação == 'Qualificado'")
-    qty_qualified_category = len(df_qualified.index)
-
-    calculation = f"{value}: {total_rows} - {qty_qualified_category}"
-
-    if total_rows > 0:
-      percentage = qty_qualified_category / total_rows
-      percentage = "{:.0%}".format(percentage)
-    else:
-      percentage = 0
-
-    result_list.append({
-        "TaxaConversão": percentage,
-        "Calculo": calculation
-    })
-  return result_list
-
 def generate_data_column_contagem_from_qualificacao(values, column):
   result_list = []
 
   for value in values:
+    if value == "":
+      continue
+
     df_filtered = df.query(f"{column} == '{value}'")
     total_rows = len(df_filtered.index)
 
@@ -91,6 +70,34 @@ def generate_data_column_contagem_from_qualificacao(values, column):
       percentage = "{:.0%}".format(percentage)
     else:
       percentage = 0
+
+    result_list.append({
+        "TaxaConversão": percentage,
+        "Calculo": calculation
+    })
+  return result_list
+
+def generate_data_column_contagem(values, column):
+  result_list = []
+
+  for value in values:
+    if value == "":
+      continue
+
+    df_filtered = df.query(f"{column} == '{value}'")
+    total_rows = len(df_filtered.index)
+
+    df_qualified = df_filtered.query("Qualificação == 'Qualificado'")
+    qty_qualified_category = len(df_qualified.index)
+
+    calculation = f"{value}: {total_rows} - {qty_qualified_category}"
+
+    if qty_qualified_category > 0:
+      percentage = qty_qualified_category / total_rows
+      percentage = "{:.0%}".format(percentage)
+    else:
+      percentage = 0
+
 
     result_list.append({
         "TaxaConversão": percentage,
