@@ -1,15 +1,10 @@
 version: "3.9"
 
 services:
-  automacao_mkt:
-    image: python:3.12.5-alpine3.20
-    container_name: automacao_mkt
-    working_dir: /app
-    command: "/bin/ash init-container.sh"
+  jupyter:
+    image: quay.io/jupyter/datascience-notebook:2024-08-30
+    container_name: jupyter
+    ports:
+      - 8888:8888
     volumes:
-      - "./:/app"
-    deploy:
-      resources:
-        limits:
-          cpus: "1"
-          memory: 512M
+      - "./:/home/jovyan/work"
