@@ -127,19 +127,19 @@ df.loc[:, "Taxa de Conversão"] = list_taxa_conversao
 df.loc[:, "Contagem"] = list_contagem
 
 ## Adiciona o valor Chat SalesIQ na coluna Canal
-df_salesiq = df.query("Canal in ['Adwords', 'Direct', 'Referrals', 'Search Engine']")
-df_salesiq.loc[:, "Canal"] = "Chat SalesIQ"
+# df_salesiq = df.query("Canal in ['Adwords', 'Direct', 'Referrals', 'Search Engine']")
+# df_salesiq.loc[:, "Canal"] = "Chat SalesIQ"
 
-df_not_salesiq = df.query("Canal not in ['Adwords', 'Direct', 'Referrals', 'Search Engine']")
+# df_not_salesiq = df.query("Canal not in ['Adwords', 'Direct', 'Referrals', 'Search Engine']")
 
-df_final = pd.concat([df_salesiq, df_not_salesiq])
+# df_final = pd.concat([df_salesiq, df_not_salesiq])
 
 ## Adiciona valores totais na primeira linha, embaixo da linha das colunas
-df_final.loc[-1] = [data, qty_ids, qty_qualified, percentage_qualified, "", "", "", "", "", "", "", ""]
-df_final.index = df_final.index + 1
-df_final = df_final.sort_index()
+df.loc[-1] = [data, qty_ids, qty_qualified, percentage_qualified, "", "", "", "", "", "", "", ""]
+df.index = df.index + 1
+df = df.sort_index()
 
 # Exportar como CSV
 now = datetime.datetime.now()
 now = now.strftime("%Y_%m_%d_%H_%M")
-df_final.to_csv(f'./planilha_chat_estagio_2de2_{now}.csv', index=False)
+df.to_csv(f'./planilha_chat_estagio_2de2_{now}.csv', index=False)
