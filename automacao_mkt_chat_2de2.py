@@ -11,10 +11,15 @@ import pandas as pd
 import datetime
 import numpy as np
 
-caminho_do_arquivo = "/content/planilha_chat_estagio_2de2_2024_09_18_23_36.csv"
-data = "11/09/2024"
+# O código desse notebook esta no github: https://github.com/Russel-Servicos/automacao-mkt-chat
+
+caminho_do_arquivo = "/content/gabarito planilha_chat_estagio_1de2_2024_09_19_12_34.csv"
+data = "18/09/2024"
 
 df = pd.read_csv(caminho_do_arquivo)
+
+## Remove linhas com NaN ou vazia
+df.dropna(how="all")
 
 ## Conta quantidade de qualificado, não qualificado e emprego
 qty_ids = len(df.index)
