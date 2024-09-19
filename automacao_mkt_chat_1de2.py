@@ -8,10 +8,13 @@ Original file is located at
 """
 
 import pandas as pd
+import numpy as np
 import datetime
 
-caminho_do_arquivo = "/content/planilha_chat_estagio_1de2_2024_09_18_16_25.csv"
-data = "11/09/2024"
+# O código desse notebook esta no github: https://github.com/Russel-Servicos/automacao-mkt-chat
+
+caminho_do_arquivo = "/content/Tabela_SalesIQ_18_09.csv"
+data = "18/09/2024"
 
 df = pd.read_csv(caminho_do_arquivo)
 
@@ -29,6 +32,13 @@ columns_to_type_conversions={
     'Campaign Name': 'str',
   }
 df = df.astype(columns_to_type_conversions)
+
+clear_column_nan_value = lambda column_name: np.where(df[column_name] == 'nan', '', df[column_name])
+
+df['Page'] = clear_column_nan_value('Page')
+df['Question'] = clear_column_nan_value('Question')
+df['Source'] = clear_column_nan_value('Source')
+df['Campaign Name'] = clear_column_nan_value('Campaign Name')
 
 ## Filtra as linhas a coluna Page (Página de Aterrissagem)
 query_is_russelvagas = "not (Page.str.contains('russelvagas.com'))"
