@@ -4,7 +4,9 @@ services:
   jupyter:
     image: quay.io/jupyter/datascience-notebook:2024-08-30
     container_name: jupyter
+    working_dir: /home/jovyan/work
     ports:
       - 8888:8888
+      - 3000-3005:3000-3005
     volumes:
       - "./:/home/jovyan/work"
