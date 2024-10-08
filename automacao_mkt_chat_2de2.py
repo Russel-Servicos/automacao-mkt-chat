@@ -10,16 +10,17 @@ Original file is located at
 import pandas as pd
 import datetime
 import numpy as np
+import matplotlib.pyplot as plt
 
 # O código desse notebook esta no github: https://github.com/Russel-Servicos/automacao-mkt-chat
 
-caminho_do_arquivo = "/content/gabarito planilha_chat_estagio_1de2_2024_09_19_12_34.csv"
-data = "18/09/2024"
+caminho_do_arquivo = "/content/Tabela SalesIQ 07.10 - planilha_chat_estagio_1de2_2024_10_08_12_43.csv.csv"
+data = "07/10/2024"
 
 df = pd.read_csv(caminho_do_arquivo)
 
 ## Remove linhas com NaN ou vazia
-df.dropna(how="all")
+df.dropna(how="all",inplace=True)
 
 ## Conta quantidade de qualificado, não qualificado e emprego
 qty_ids = len(df.index)
@@ -135,8 +136,12 @@ for value in all_contagem_rows_dict:
     list_taxa_conversao.append(value["TaxaConversão"])
     list_contagem.append(value["Calculo"])
 
-df.loc[:, "Taxa de Conversão"] = list_taxa_conversao
-df.loc[:, "Contagem"] = list_contagem
+cria_tabela_separado_para_contagem=False
+try:
+  df.loc[:, "Taxa de Conversão"] = list_taxa_conversao
+  df.loc[:, "Contagem"] = list_contagem
+except:
+  cria_tabela_separado_para_contagem=True
 
 ## Adiciona o valor Chat SalesIQ na coluna Canal
 # df_salesiq = df.query("Canal in ['Adwords', 'Direct', 'Referrals', 'Search Engine']")
@@ -155,3 +160,12 @@ df = df.sort_index()
 now = datetime.datetime.now()
 now = now.strftime("%Y_%m_%d_%H_%M")
 df.to_csv(f'./planilha_chat_estagio_2de2_{now}.csv', index=False)
+
+if cria_tabela_separado_para_contagem == True:
+  data_contagem = {
+    'Taxa de Conversão': list_taxa_conversao,
+    'Contagem': list_contagem
+  }
+
+  df_contagem = pd.DataFrame(data_contagem)
+  df_contagem.to_csv(f'./planilha_chat_estagio_2de2_{now}_contagem.csv', index=False)

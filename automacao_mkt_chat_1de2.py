@@ -10,16 +10,17 @@ Original file is located at
 import pandas as pd
 import numpy as np
 import datetime
+import matplotlib.pyplot as plt
 
 # O código desse notebook esta no github: https://github.com/Russel-Servicos/automacao-mkt-chat
 
-caminho_do_arquivo = "/content/Tabela_SalesIQ_18_09.csv"
-data = "18/09/2024"
+caminho_do_arquivo = "/content/Tabela_SalesIQ_07_10.csv"
+data = "07/10/2024"
 
 df = pd.read_csv(caminho_do_arquivo)
 
 ## Remove linhas com NaN ou vazia
-df.dropna(how="all")
+df.dropna(how="all",inplace=True)
 
 ## Remove linhas duplicadas
 df = df.drop_duplicates(subset = ["Name"])
@@ -85,3 +86,5 @@ df = df.drop(columns = ['Question'], axis = 1)
 now = datetime.datetime.now()
 now = now.strftime("%Y_%m_%d_%H_%M")
 df.to_csv(f'./planilha_chat_estagio_1de2_{now}.csv', index=False)
+
+#plt.bar()
